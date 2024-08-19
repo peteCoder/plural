@@ -1,4 +1,5 @@
 // import Navigation from '@/components/site/navigation'
+import Navigation from '@/components/site/navigation'
 import { ClerkProvider } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
 import React from 'react'
@@ -7,7 +8,7 @@ const MainSiteLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     // <ClerkProvider appearance={{ baseTheme: dark }}>
       <main className="h-full">
-        {/* <Navigation /> */}
+        <Navigation />
         {children}
       </main>
     // </ClerkProvider>
