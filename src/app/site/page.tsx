@@ -1,4 +1,9 @@
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { pricingCards } from '@/lib/constants'
+import { cn } from '@/lib/utils'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Home = () => {
@@ -19,6 +24,45 @@ const Home = () => {
                     className='rounded-tl-2xl rounded-tr-2xl border-2 border-muted'
                 />
                 <div className="bottom-0 top-[50%] bg-gradient-to-t dark:from-background left-0 right-0 absolute z-10"></div>
+            </div>
+        </section>
+        <section className='flex justify-center items-center flex-col gap-4 md:mt-20'>
+            <h2 className='text-4xl text-center'>Choose what fits you right</h2>
+            <p className='text-muted-foreground text-center'>
+                Our straightforward pricing plans are tailored to meet
+                your needs. If {"you're"} not <br />
+                ready to commit you can get started for free.
+            </p>
+
+            <div className="flex items-center justify-center gap-4 flex-wrap mt-6">
+                {pricingCards.map((card) => (
+                    // WIPT: Wire up free product from strip
+                    <Card key={card?.title} className={cn("w-[300px] flex flex-col justify-between", card.title === "Unlimited Saas" && "border-2 border-primary")}>
+                        <CardHeader>
+                            <CardTitle className={cn('', card?.title !== "Unlimited Saas" && "text-muted-foreground")}>
+                                {card?.title}
+                            </CardTitle>
+                            <CardDescription>{card?.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <span className='text-4xl font-bold'>{card.price}</span>
+                            <span className='text-muted-foreground'>/m</span>
+                        </CardContent>
+                        <CardFooter className='flex flex-col items-start gap-4'>
+                            <div className="">
+                                {card.features.map((feature) => (
+                                    <div className="flex gap-2 items-center" key={feature}>
+                                        <Check className='text-muted-foreground' />
+                                        <p>{feature}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <Link href={`/agency?plan=${card.priceId}`} className={cn("w-full text-center bg-muted-foreground p-2 rounded-md", card.title === "Unlimited Saas" && "bg-primary")}>
+                                Get Started
+                            </Link>
+                        </CardFooter>
+                    </Card>
+                ))}
             </div>
         </section>
     </main>
